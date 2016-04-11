@@ -1,0 +1,8 @@
+<div ng-controller="listCtrl">
+<input type="button" ng-click="getdata()">
+    {{selected}}
+    <ul>
+        <li ng-repeat="gundam in gundams">{{gundam.name}}<br> {{gundam.year}}</li>
+    </ul>
+    {{content|length}}
+</div>
