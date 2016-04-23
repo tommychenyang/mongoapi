@@ -9,4 +9,11 @@ controllers.controller('listCtrl',['$scope','GundamRepo',function($scope,GundamR
         $scope.selected=GundamRepo.get({id:'5707d49fedeafe982da7becd'});
 
     };
-}]);
+}])
+.controller('dashboardCtrl',['$scope','GundamRepo',function($scope,GundamRepo){
+        $scope.getdata=function(){
+            $scope.selected=GundamRepo.get({id:'5707d49fedeafe982da7becd'});
+
+        };
+
+    }]);

@@ -10,18 +10,34 @@ describe("GundamApp Controller", function () {
 
     describe("listCtrl",function(){
 
-        var scope, ctrl, $httpBackend;
+        var scope, ctrl, $httpBackend,Gundamrepo;
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
             $httpBackend = _$httpBackend_;
+            Gundamrepo={
+                get: function(id){
 
+                },
+                query:function(){
+
+                }
+            };
 
             scope = $rootScope.$new();
-            ctrl = $controller('listCtrl', {$scope: scope});
+            ctrl = $controller('listCtrl', {$scope: scope,GundamRepo:Gundamrepo});
         }));
+
         it("check initialization",function(){
             expect(scope.content).toEqual('blahblah');
 
+        });
+
+        it("should get data when service called",function(){
+            spyOn(Gundamrepo, 'get').and.returnValue({name:'gundam',year:'1991'});
+            scope.getdata();
+           expect(typeof scope.selected).toEqual('object');
+            expect(Gundamrepo.get).toHaveBeenCalled();
+            //expect(result.name).toBeDefined();
         })
     });
 

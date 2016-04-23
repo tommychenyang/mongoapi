@@ -14,7 +14,8 @@ module.exports = function(config) {
 
     plugins : [
       'karma-chrome-launcher',
-      'karma-jasmine'
+      'karma-jasmine',
+      'karma-ng-html2js-preprocessor'
     ],
     // list of files / patterns to load in the browser
     files: [
@@ -24,6 +25,8 @@ module.exports = function(config) {
       'bower_components/angular-resource/angular-resource.js',
       'src/js/**/*.js',
       'test/unit/**/*.js'
+
+        //'src/partial/**/*.html'
     ],
 
 
@@ -36,8 +39,15 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      "src/partial/**/*.html":['ng-html2js']
     },
+    ngHtml2JsPreprocessor: {
+      // strip this from the file path
+      stripPrefix:'src/'
 
+
+
+    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -69,7 +79,7 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: true
 
   })
 }

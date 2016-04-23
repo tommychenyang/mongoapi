@@ -10,12 +10,29 @@ controllers.controller('listCtrl',['$scope','GundamRepo',function($scope,GundamR
         $scope.selected=GundamRepo.get({id:'5707d49fedeafe982da7becd'});
 
     };
-}]);
+}])
+.controller('dashboardCtrl',['$scope','GundamRepo',function($scope,GundamRepo){
+        $scope.getdata=function(){
+            $scope.selected=GundamRepo.get({id:'5707d49fedeafe982da7becd'});
+
+        };
+
+    }]);
 /**
  * Created by TommyChen on 4/8/2016.
  */
 var directives=angular.module('Directive',[]);
+directives.directive('gundamBlock',function(){
+  return{
+      restrict:'EA',
+      scope:{
+          name:'=',
+          year:'='
+      },
+      templateUrl:'partial/GundamBlock.tpl.html'
 
+  };
+});
 /**
  * Created by TommyChen on 4/11/2016.
  */
@@ -48,9 +65,13 @@ services.factory('GundamRepo',['$resource',function($resource){
 angular.module('GundamApp',['ngRoute','Controller','Directive','Service','Filter'])
 .config(['$routeProvider',function($routeProvider){
     $routeProvider.when('/',{
-        templateUrl: 'partial/gundam-list.html',
+        templateUrl: 'partial/dashboard.html',
         controller:'listCtrl'
     })
+        .when('/list',{
+            templateUrl:'partial/gundam-list.html',
+            controller:'dashboardCtrl'
+        })
         .otherwise({redirectTo:'/'});
 
     }]);

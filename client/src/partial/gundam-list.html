@@ -1,8 +1,9 @@
 <div ng-controller="listCtrl">
-<input type="button" ng-click="getdata()">
-    {{selected}}
-    <ul>
-        <li ng-repeat="gundam in gundams">{{gundam.name}}<br> {{gundam.year}}</li>
+<input type="button" class="btn btn-default" ng-click="getdata()">
+    <gundam-block name="selected.name" year="selected.year"></gundam-block>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="gundam in gundams" gundam-block year="gundam.year" name="gundam.name"></li>
     </ul>
     {{content|length}}
+    <a href="/#/dashboard">Back to dashboard</a>
 </div>
