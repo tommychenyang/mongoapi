@@ -9,7 +9,9 @@ module.exports = function(grunt) {
     banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> -  \n */',
     src:{
       js: ['src/**/*.js'],
-      html: ['src/index.html']
+      html: ['index.html'],
+      less: ['src/resource/stylesheet.less'],
+      uibootstrap:['bower_component/angular-bootstrap/**/*.js']
     },
     clean: ['<%= distdir %>/*'],
     // Task configuration.
@@ -18,6 +20,33 @@ module.exports = function(grunt) {
         configFile: 'test/karma.conf.js'
 
       }
+    },
+    less: {
+      build: {
+
+        files: {
+          '<%= distdir %>/<%= pkg.name %>.css': '<%= src.less %>'
+        }
+      },
+      release: {
+        files: {
+          '<%= distdir %>/<%= pkg.name %>.css': ['<%= src.less %>']
+        },
+        options: {
+          plugins: [
+            new (require('less-plugin-autoprefix'))({browsers: ["last 2 versions"]}),
+            new (require('less-plugin-clean-css'))({advanced: true})
+          ]
+        }
+      }
+
+    },
+    html2js: {
+
+      main: {
+        src: ['src/**/*.tpl.html'],
+        dest: '<%= distdir %>/templates.js'
+      },
     },
     concat: {
 
@@ -29,11 +58,15 @@ module.exports = function(grunt) {
         dest: '<%=distdir %>/<%= pkg.name %>.js'
       },
       index: {
-        src: ['src/index.html'],
+        src: ['index.html'],
         dest: '<%= distdir %>/index.html',
         options: {
           process: true
         }
+      },
+      bootstrap:{
+        src:['bower_components/angular-bootstrap/ui-bootstrap.js','bower_components/angular-bootstrap/ui-bootstrap-tpls.js'],
+        dest:'<%= distdir %>/ui-bootstrap.js'
       },
       angular: {
         src:['bower_components/angular/angular.js', 'bower_components/angular-route/angular-route.js','bower_components/angular-resource/angular-resource.js'],
@@ -58,6 +91,10 @@ module.exports = function(grunt) {
       jquery: {
         src:['bower_components/jquery/dist/jquery.js'],
         dest: '<%= distdir %>/jquery.js'
+      },
+      bootstrap:{
+        src:['bower_components/angular-bootstrap/ui-bootstrap.js','bower_components/angular-bootstrap/ui-bootstrap-tpls.js'],
+        dest:'<%= distdir %>/ui-bootstrap.js'
       }
     },
     jshint: {
@@ -97,8 +134,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-html2js');
+  grunt.loadNpmTasks('grunt-contrib-less');
+
   // Default task.
   grunt.registerTask('default', ['clean','jshint','concat', 'uglify']);
-  grunt.registerTask('build',['clean','jshint','concat','karma']);
-  grunt.registerTask('release', ['clean','jshint','concat', 'uglify','karma']);
+  grunt.registerTask('build',['clean','jshint','concat','html2js']);
+  grunt.registerTask('release', ['clean','jshint','concat', 'uglify','html2js','less:release']);
 };

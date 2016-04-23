@@ -10,10 +10,10 @@ describe("GundamApp Controller", function () {
 
     describe("listCtrl",function(){
 
-        var scope, ctrl, $httpBackend,Gundamrepo;
+        var scope, ctrl,Gundamrepo;
 
-        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
-            $httpBackend = _$httpBackend_;
+        beforeEach(inject(function( $rootScope, $controller) {
+
             Gundamrepo={
                 get: function(id){
 
