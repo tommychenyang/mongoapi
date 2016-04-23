@@ -2,7 +2,7 @@
 <input type="button" class="btn btn-default" ng-click="getdata()">
     <gundam-block name="selected.name" year="selected.year"></gundam-block>
     <ul class="list-group">
-        <li class="list-group-item" ng-repeat="gundam in gundams" gundam-block year="gundam.year" name="gundam.name"></li>
+        <li class="list-group-item" ng-repeat="gundam in gundams" gundam-block year="gundam.year" name="gundam.name" ng-click="goto(gundam._id)"></li>
     </ul>
     {{content|length}}
     <a href="/#/dashboard">Back to dashboard</a>

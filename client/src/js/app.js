@@ -6,11 +6,15 @@ angular.module('GundamApp',['ngRoute','Controller','Directive','Service','Filter
 .config(['$routeProvider',function($routeProvider){
     $routeProvider.when('/',{
         templateUrl: 'partial/dashboard.html',
-        controller:'listCtrl'
+        controller:'dashboardCtrl'
     })
         .when('/list',{
             templateUrl:'partial/gundam-list.html',
-            controller:'dashboardCtrl'
+            controller:'listCtrl'
+        })
+        .when('/gundam/:id',{
+            templateUrl:'partial/gundam-view.html',
+            controller:'gundamCtrl'
         })
         .otherwise({redirectTo:'/'});
 

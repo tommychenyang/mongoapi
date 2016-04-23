@@ -11,3 +11,12 @@ services.factory('GundamRepo',['$resource',function($resource){
         get:{method:'GET',params:{id:''}}
     });
 }]);
+services.factory('Gundam',function(){
+   var factory={};
+    factory.data={name:'',year:''};
+    factory.set=function(d){
+        this.data=d;
+    };
+    return factory;
+
+});
